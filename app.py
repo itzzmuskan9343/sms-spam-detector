@@ -16,13 +16,13 @@ def load_model():
 vec, model = load_model()
 
 st.title("📩 SMS Spam Detector")
-st.write("Koi bhi message paste karo, model batayega spam hai ya nahi. English aur Hinglish dono chalega.")
+st.write("Paste any message and the model will tell you whether it is spam or not. Works with English and Hinglish messages.")
 
-msg = st.text_area("Message yahan paste karo", height=120)
+msg = st.text_area("Paste your message here", height=120)
 
-if st.button("Check karo"):
+if st.button("Check message"):
     if not msg.strip():
-        st.warning("Pehle koi message likho.")
+        st.warning("Please enter a message first.")
     else:
         prob = model.predict_proba(vec.transform([msg]))[0][1]
         if prob >= 0.5:
@@ -30,5 +30,5 @@ if st.button("Check karo"):
         else:
             st.success(f"✅ Not Spam ({(1-prob)*100:.0f}% confidence)")
 
-with st.expander("Model ke baare mein"):
-    st.write("TF-IDF + Naive Bayes, SMS Spam Collection dataset aur kuch Hinglish examples par trained. Devanagari (Hindi script) support nahi hai.")
+with st.expander("About the model"):
+    st.write("Built with TF-IDF and Naive Bayes, trained on the SMS Spam Collection dataset plus a small set of Hinglish examples. Hindi written in Devanagari script is not supported.")
